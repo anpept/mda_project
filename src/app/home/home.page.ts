@@ -42,7 +42,7 @@ export class HomePage {
     }
   }
   
-  async deletePost(id: string) {
+  async deleteUser(id: string) {
     //muestra el loader
     let loader = this.loadingCtrl.create({
       message: "Please wait..."

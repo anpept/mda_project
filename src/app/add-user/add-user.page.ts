@@ -52,12 +52,12 @@ export class AddUserPage implements OnInit {
     }
 
     if (!this.user.name) {
-      this.showToast('Enter password');
+      this.showToast('Enter name');
       return false;
     }
 
     if (!this.user.type) {
-      this.showToast('Enter password');
+      this.showToast('Enter type');
       return false;
     }
     return true;
