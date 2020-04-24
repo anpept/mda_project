@@ -1,31 +1,31 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="cabecera">
     <ion-title class="ion-text-center">Add User</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-item>
+<ion-content color="fondo">
+  <ion-item color="fondo">
     <ion-label position="floating">E-mail</ion-label>
     <ion-input type="email" [(ngModel)]="user.email" required=""></ion-input>
   </ion-item>
 
-  <ion-item>
+  <ion-item color="fondo">
     <ion-label position="floating">Password</ion-label>
     <ion-input type="password" [(ngModel)]="user.password" required=""></ion-input>
   </ion-item>
 
-  <ion-item>
+  <ion-item color="fondo">
     <ion-label position="floating">Name</ion-label>
     <ion-input type="text" [(ngModel)]="user.name" required=""></ion-input>
   </ion-item>
 
-  <ion-item>
+  <ion-item color="fondo">
     <ion-label position="floating">Type</ion-label>
     <ion-input type="text" [(ngModel)]="user.type" required=""></ion-input>
   </ion-item>
 
-  <ion-button class="ion-padding" color="primary" expand="full" (click)="createUser(user)">
+  <ion-button class="ion-padding" color="secundario" expand="full" (click)="createUser(user)">
     Create
   </ion-button>
 </ion-content>
