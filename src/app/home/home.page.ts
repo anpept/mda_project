@@ -30,7 +30,10 @@ export class HomePage {
             id: e.payload.doc.id,
             email: e.payload.doc.data()['email'],
             name: e.payload.doc.data()['name'],
-            type: e.payload.doc.data()['type']
+            type: e.payload.doc.data()['type'],
+            surname: e.payload.doc.data()['surname'],
+            category: e.payload.doc.data()['category'],
+            other_data: e.payload.doc.data()['other_data']
           };
         });
       });

@@ -34,7 +34,10 @@ export class EditUserPage implements OnInit {
       this.user.email = data["email"];
       this.user.password = data["password"];
       this.user.name = data["name"];
+      this.user.surname = data["surname"];
       this.user.type = data["type"];
+      this.user.category = data["category"];
+      this.user.other_data = data["other_data"];
     });
     (await loader).dismiss();
   }
