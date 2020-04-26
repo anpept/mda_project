@@ -33,7 +33,8 @@ export class HomePage {
             type: e.payload.doc.data()['type'],
             surname: e.payload.doc.data()['surname'],
             category: e.payload.doc.data()['category'],
-            other_data: e.payload.doc.data()['other_data']
+            other_data: e.payload.doc.data()['other_data'],
+            imageURL: e.payload.doc.data()['imageURL']
           };
         });
       });

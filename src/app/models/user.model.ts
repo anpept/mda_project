@@ -7,4 +7,5 @@ export interface User {
     type: string;
     category: string;
     other_data: string;
+    imageURL: string;
 }

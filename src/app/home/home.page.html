@@ -12,6 +12,9 @@
   <ion-list lines="none" color="fondo" class="ion-no-padding">
     <ion-item-sliding *ngFor="let user of users">
       <ion-item class="no-padding" color="fondo">
+        <ion-avatar slot="start">
+          <ion-img [src]="user.imageURL"></ion-img>
+        </ion-avatar>
         <ion-label>
           <h2>{{user.name}} {{user.surname}}</h2>
           <p>Type: {{user.type}}</p>

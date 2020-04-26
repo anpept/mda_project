@@ -3,6 +3,9 @@ import {User} from "../models/user.model";
 import {ActivatedRoute} from "@angular/router";
 import {LoadingController, NavController, ToastController} from "@ionic/angular";
 import {AngularFirestore} from "@angular/fire/firestore";
+import {AngularFireStorage} from "@angular/fire/storage";
+import {finalize} from "rxjs/operators";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-edit-user',
@@ -12,17 +15,20 @@ import {AngularFirestore} from "@angular/fire/firestore";
 export class EditUserPage implements OnInit {
   user = {} as User;
   id: any;
+  urlImage: Observable<string>;
 
   constructor(private actRoute: ActivatedRoute,
               private loadingCtrl: LoadingController,
               private firestore: AngularFirestore,
               private toastCtrl: ToastController,
-              private navCtrl: NavController) {
+              private navCtrl: NavController,
+              private storage: AngularFireStorage) {
     this.id = this.actRoute.snapshot.paramMap.get("id");
   }
 
   ngOnInit() {
     this.getUserById(this.id);
+    //this.urlImage =
   }
   async getUserById(id: string){
     const loader = this.loadingCtrl.create({
@@ -38,6 +44,7 @@ export class EditUserPage implements OnInit {
       this.user.type = data["type"];
       this.user.category = data["category"];
       this.user.other_data = data["other_data"];
+      this.user.imageURL=data["imageURL"];
     });
     (await loader).dismiss();
   }
@@ -92,6 +99,17 @@ export class EditUserPage implements OnInit {
       message,
       duration: 3000
     }).then(toastData => toastData.present());
+  }
+
+  onUpload(event) {
+    //console.log('subir', event.target.files[0]);
+    //Generar id único a la imagen
+    const id = Math.random().toString(36).substring(2);
+    const file = event.target.files[0];
+    const filePath = 'profile/image_'+id+'.jpg';
+    const ref = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+    task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
   }
 
 }

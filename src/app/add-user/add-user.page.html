@@ -35,8 +35,17 @@
     <ion-label position="floating">Other data</ion-label>
     <ion-input type="text" [(ngModel)]="user.other_data" required=""></ion-input>
   </ion-item>
-
+  <ion-item color="fondo" class="hidden">
+    <input #fileUpload id="fileUpload" type="file" accept=".jpg" (change)="onUpload($event)">
+    <ion-input type="text" class="hidden" [value]="urlImage | async" [(ngModel)]="user.imageURL"></ion-input>
+  </ion-item>
+  <ion-button class="ion-padding" color="cabecera" expand="full" (click)="fileUpload.click()">
+    Upload Image
+  </ion-button>
   <ion-button class="ion-padding" color="secundario" expand="full" (click)="createUser(user)">
     Create
+  </ion-button>
+  <ion-button class="ion-padding" color="cabecera" expand="full" [routerLink]="'/home'">
+    Cancel
   </ion-button>
 </ion-content>

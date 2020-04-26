@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {User} from '../models/user.model';
 import {LoadingController, NavController, ToastController} from '@ionic/angular';
 import {AngularFirestore} from '@angular/fire/firestore';
+import {AngularFireStorage} from "@angular/fire/storage";
+import {Observable} from "rxjs";
+import {finalize} from "rxjs/operators";
 
 @Component({
   selector: 'app-add-user',
@@ -10,10 +13,12 @@ import {AngularFirestore} from '@angular/fire/firestore';
 })
 export class AddUserPage implements OnInit {
   user = {} as User;
+  urlImage: Observable<string>;
   constructor(private toastCtrl: ToastController,
               private loadingCtrl: LoadingController,
               private navCtrl: NavController,
-              private firestore: AngularFirestore) { }
+              private firestore: AngularFirestore,
+              private storage: AngularFireStorage) { }
 
   ngOnInit() {}
 
@@ -72,6 +77,10 @@ export class AddUserPage implements OnInit {
       this.showToast('Enter other data');
       return false;
     }
+    if (!this.user.imageURL) {
+      this.showToast('Select a image');
+      return false;
+    }
     return true;
   }
 
@@ -80,5 +89,16 @@ export class AddUserPage implements OnInit {
       message,
       duration: 3000
     }).then(toastData => toastData.present());
+  }
+
+  onUpload(event) {
+    //console.log('subir', event.target.files[0]);
+    //Generar id único a la imagen
+    const id = Math.random().toString(36).substring(2);
+    const file = event.target.files[0];
+    const filePath = 'profile/image_'+id+'.jpg';
+    const ref = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+    task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
   }
 }
