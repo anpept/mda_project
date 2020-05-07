@@ -27,9 +27,13 @@ export class HomePage {
       this.firestore.collection('users').snapshotChanges().subscribe(data => {
         this.users = data.map(e => {
           return {
+            id: e.payload.doc.id,
             email: e.payload.doc.data()['email'],
             name: e.payload.doc.data()['name'],
-            type: e.payload.doc.data()['type']
+            type: e.payload.doc.data()['type'],
+            surname: e.payload.doc.data()['surname'],
+            category: e.payload.doc.data()['category'],
+            other_data: e.payload.doc.data()['other_data']
           };
         });
       });
@@ -39,6 +43,19 @@ export class HomePage {
     } catch (e) {
       this.showToast(e);
     }
+  }
+  
+  async deleteUser(id: string) {
+    //muestra el loader
+    let loader = this.loadingCtrl.create({
+      message: "Please wait..."
+    });
+    (await loader).present();
+
+    await this.firestore.doc("users/"+id).delete();
+
+    (await loader).dismiss();
+    console.log(id);
   }
 
   showToast(message: string) {

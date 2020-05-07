@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="cabecera">
-    <ion-title class="ion-text-center">Add User</ion-title>
+    <ion-title class="ion-text-center">Edit User</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -19,24 +19,31 @@
     <ion-label position="floating">Name</ion-label>
     <ion-input type="text" [(ngModel)]="user.name" required=""></ion-input>
   </ion-item>
+
   <ion-item color="fondo">
     <ion-label position="floating">Surname</ion-label>
     <ion-input type="text" [(ngModel)]="user.surname" required=""></ion-input>
   </ion-item>
+
   <ion-item color="fondo">
     <ion-label position="floating">Type</ion-label>
     <ion-input type="text" [(ngModel)]="user.type" required=""></ion-input>
   </ion-item>
+
   <ion-item color="fondo">
     <ion-label position="floating">Category</ion-label>
     <ion-input type="text" [(ngModel)]="user.category" required=""></ion-input>
   </ion-item>
+
   <ion-item color="fondo">
     <ion-label position="floating">Other data</ion-label>
     <ion-input type="text" [(ngModel)]="user.other_data" required=""></ion-input>
   </ion-item>
 
-  <ion-button class="ion-padding" color="secundario" expand="full" (click)="createUser(user)">
-    Create
+  <ion-button class="ion-padding" color="secundario" expand="full" (click)="updateUser(user)">
+    Edit
+  </ion-button>
+  <ion-button class="ion-padding" color="cabecera" expand="full" [routerLink]="'/home'">
+    Cancel
   </ion-button>
 </ion-content>
